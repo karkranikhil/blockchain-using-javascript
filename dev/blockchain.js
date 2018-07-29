@@ -1,3 +1,5 @@
+const sha256 = require('sha256')
+
 function Blockchain(){
     this.chain = []; // here all block will store as a chain
     this.pendingTransactions=[]; // everytime a new trxn created it push to this.But this is not recorder into blockchain. it will record when a new block is mined/created . its an pending tnx and not validated yet. it will recorder whenwe create new block
@@ -29,6 +31,12 @@ Blockchain.prototype.createNewTransaction= function(amount, sender, recipient){
     }
     this.pendingTransactions.push(newTransaction)
     return this.getLastBlock()['index']+1 // return no of bloks this trnx added to
+}
+//it take block from block chain and hash that to fixed length string that is pretty much random
+Blockchain.prototype.hashBlock = function(previousBlockHash, currentBlockData, nonce){
+    const dataAsString = previousBlockHash + nonce.toString() + JSON.stringify(currentBlockData)
+    const hash = sha256(dataAsString)
+    return hash
 }
 
 module.exports = Blockchain
