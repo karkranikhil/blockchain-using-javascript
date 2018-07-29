@@ -15,5 +15,7 @@ Blockchain.prototype.createNewBlock = function(nonce, previousBlockHash, hash){
     } 
     this.newTransactions = [];
     this.chain.push(newBlock);
-    return newBlock
+    return newBlock;
 }
+
+module.exports = Blockchain
