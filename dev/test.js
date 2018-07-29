@@ -14,8 +14,13 @@ const currentBlockData = [
         sender: 'NIK897JHKKJH',
         recipient: 'SID897JHOIUOI' 
     }]
-    const nonce = 100;
+const nonce = 11680
 console.log(bitcoin.hashBlock(previousBlockHash, currentBlockData, nonce))
+//console.log(bitcoin.proofOfWork(previousBlockHash, currentBlockData))
+
+// const nonce = 100;
+
+// console.log(bitcoin.hashBlock(previousBlockHash, currentBlockData, nonce))
 // bitcoin.createNewBlock(1234, 'OINA797HJKKH', 'OINA797HJKKL');
 // bitcoin.createNewTransaction(100, 'JOHNH897JHKKJH', 'JULIAH897JHOIUOI')
 
