@@ -19,7 +19,7 @@ const currentBlockData = [
 //console.log(bitcoin.hashBlock(previousBlockHash, currentBlockData, nonce))
 //console.log(bitcoin.proofOfWork(previousBlockHash, currentBlockData))
 
-// const nonce = 100;
+//const nonce = 100;
 
 // console.log(bitcoin.hashBlock(previousBlockHash, currentBlockData, nonce))
 // bitcoin.createNewBlock(1234, 'OINA797HJKKH', 'OINA797HJKKL');
@@ -30,6 +30,12 @@ const currentBlockData = [
 // bitcoin.createNewTransaction(300, 'JOHNH897JHKKJF', 'JULIAH897JHOIUOS')
 // bitcoin.createNewTransaction(400, 'JOHNH897JHKKJD', 'JULIAH897JHOIUOA')
 // bitcoin.createNewBlock(123477, 'OINA797HJeLLL', 'OINA797HJwMMM');
- //console.log(bitcoin);
+//console.log(bitcoin);
 // console.log(bitcoin.chain[1]);
 // console.log(bitcoin.chain[2]);
+//const nonce =100
+//console.log(bitcoin.createNewBlock(1234, 'OINA797HJKKH', 'OINA797HJKKL'))
+//console.log(bitcoin.hashBlock(previousBlockHash, currentBlockData, nonce))
+ const nonce = 11680
+ console.log(bitcoin.hashBlock(previousBlockHash, currentBlockData, nonce))
+//console.log(bitcoin.proofOfWork(previousBlockHash, currentBlockData))
