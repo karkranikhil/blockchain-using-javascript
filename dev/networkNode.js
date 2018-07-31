@@ -3,6 +3,9 @@ const app = express()
 const bodyParser = require('body-parser')
 const Blockchain = require('./blockchain')
 const uuid = require('uuid/v1');
+console.log(process.argv)
+const port = process.argv[2]
+
 const nodeAddress = uuid().split('-').join('')
 const nikcoin = new Blockchain()
 
@@ -38,6 +41,7 @@ app.get('/mine', function(req, res){
         block:newBlock
     })
 })
-app.listen(3000, function(){
-    console.log('Listening on port 3000')
+app.listen(port, function(){
+    console.log(`Listening on port ${port}...`)
 })
+
