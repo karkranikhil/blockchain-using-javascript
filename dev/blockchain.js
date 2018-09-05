@@ -41,6 +41,8 @@ Blockchain.prototype.addTransactionToPendingTransactions = function(transactionO
     return this.getLastBlock()['index']+1 // return no of bloks this trnx added to
 }
 
+
+
 //it take block from block chain and hash that to fixed length string that is pretty much random
 Blockchain.prototype.hashBlock = function(previousBlockHash, currentBlockData, nonce){
     const dataAsString = previousBlockHash + nonce.toString() + JSON.stringify(currentBlockData)

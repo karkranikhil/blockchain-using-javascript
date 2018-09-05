@@ -55,14 +55,41 @@ app.get('/mine', function(req, res){
     const nonce = nikcoin.proofOfWork(prevBlockHash, currentBlockData)
     const blockHash = nikcoin.hashBlock(prevBlockHash, currentBlockData, nonce)
 
-    // reward for the mining is 12.5  from sender address 00
-    nikcoin.createNewTransaction(12.5,"00",nodeAddress)
     const newBlock = nikcoin.createNewBlock(nonce, prevBlockHash, blockHash)
-    res.json({
-        note:'New block mined successfully',
-        block:newBlock
+    const requestPromises = [];
+    nikcoin.networkNodes.forEach(networkNodeUrl=>{
+        const requestOptions={
+            uri:networkNodeUrl+'/recieve-new-block',
+            method:'POST',
+            body:{newBlock:newBlock},
+            json:true
+        };
+        requestPromises.push(rp(requestOptions));
     })
+    Promise.all(requestPromises)
+    .then(data=>{
+        const requestOptions={
+            uri:nikcoin.currentNodeUrl+'/transaction/broadcast',
+            method:'POST',
+            body:{
+                amount:12.5,
+                sender:"00",
+                recipient:nodeAddress
+            },
+            json:true
+        }
+        // reward for the mining is 12.5  from sender address 00
+        return rp(requestOptions)
+    }).then(data=>{
+        res.json({
+            note:'New block mined successfully',
+            block:newBlock
+        })
+    })
+    
 })
+
+
 
 //register a node and broadcast to the entire network
 app.post('/register-and-broadcast-node', function(req, res){
