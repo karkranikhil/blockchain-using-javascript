@@ -59,7 +59,7 @@ app.get('/mine', function(req, res){
     const requestPromises = [];
     nikcoin.networkNodes.forEach(networkNodeUrl=>{
         const requestOptions={
-            uri:networkNodeUrl+'/recieve-new-block',
+            uri:networkNodeUrl+'/receive-new-block',
             method:'POST',
             body:{newBlock:newBlock},
             json:true
@@ -82,12 +82,32 @@ app.get('/mine', function(req, res){
         return rp(requestOptions)
     }).then(data=>{
         res.json({
-            note:'New block mined successfully',
+            note:'New block mined & broadcast successfully',
             block:newBlock
         })
     })
-    
 })
+
+app.post('/receive-new-block', function(req, res){
+    const newBlock = req.body.newBlock;
+    const lastBlock = nikcoin.getLastBlock();
+    const correctHash = lastBlock.hash === newBlock.prevBlockHash;
+    const correctIndex = lastBlock['index']+1 === newBlock['index']; // next index in the block
+    if(correctHash && correctIndex){
+        nikcoin.chain.push(newBlock);
+        nikcoin.pendingTransactions=[]
+        res.json({
+            note:'New block recieved and accepted',
+            newBlock:newBlock
+        })
+    } else {
+        res.json({
+            note:'New block rejected',
+            newBlock:newBlock
+        })
+    }
+
+});
 
 
 
