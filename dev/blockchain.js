@@ -6,7 +6,7 @@ function Blockchain(){
     this.pendingTransactions=[]; // everytime a new trxn created it push to this.But this is not recorder into blockchain. it will record when a new block is mined/created . its an pending tnx and not validated yet. it will recorder whenwe create new block
     this.currentNodeUrl = currentNodeUrl
     this.networkNodes = []
-    this.createNewBlock(0, '0', '0') // geneisis block
+    this.createNewBlock(100, '0', '0') // geneisis block
 }
 
 Blockchain.prototype.createNewBlock = function(nonce, previousBlockHash, hash){
@@ -38,15 +38,17 @@ Blockchain.prototype.createNewTransaction= function(amount, sender, recipient){
 }
 Blockchain.prototype.addTransactionToPendingTransactions = function(transactionObj){
     this.pendingTransactions.push(transactionObj)
-    return this.getLastBlock()['index']+1 // return no of bloks this trnx added to
+    return this.getLastBlock()['index']+1 // return no of blocks this trnx added to
 }
 
 
 
 //it take block from block chain and hash that to fixed length string that is pretty much random
 Blockchain.prototype.hashBlock = function(previousBlockHash, currentBlockData, nonce){
+    //console.log(previousBlockHash, currentBlockData, nonce)
     const dataAsString = previousBlockHash + nonce.toString() + JSON.stringify(currentBlockData)
     const hash = sha256(dataAsString)
+   // console.log('hash', hash)
     return hash
 }
 
@@ -58,5 +60,41 @@ Blockchain.prototype.proofOfWork = function(previousBlockHash, currentBlockData)
         hash = this.hashBlock(previousBlockHash,currentBlockData, nonce);
     }
     return nonce
+}
+// it tell whether this block is valid or not 
+//We're going to use this chain as valid method to validate the other chains inside of our network when
+Blockchain.prototype.chainIsValid = function(blockchain){
+    let validChain = true
+    // skipping genesis block thats whay starting loop with 1
+    for(let i = 1; i < blockchain.length; i++){
+        //console.log(blockchain[i])
+        const currentBlock = blockchain[i]
+        const prevBlock = blockchain[i-1]
+        const blockHash = this.hashBlock(prevBlock['hash'],{transactions:currentBlock['transactions'], index:currentBlock['index']}, currentBlock['nonce'])
+        console.log('blockHash', blockHash)
+        //we are hashing every block and making sure block hash start with 4 zeros
+        if(blockHash.substring(0,4) !== '0000'){
+            console.log('failed at hash 0000')
+            validChain = false
+        }
+        // checking all of the hashes align properly
+        if(currentBlock['previousBlockHash'] !== prevBlock['hash']){
+            console.log('failed at hash prev and currentprev hash ')
+            validChain = false // chain not valid
+        } 
+    }
+    // checking genesisBlock
+    const genesisBlock = blockchain[0]
+    console.log(genesisBlock)
+    const correctNonce = genesisBlock['nonce'] === 100
+    const correctPreviousBlockHash = genesisBlock['previousBlockHash'] === '0'
+    const correctHash = genesisBlock['hash'] === '0'
+    const correctTransactions = genesisBlock['transactions'].length === 0
+    console.log(correctNonce, correctPreviousBlockHash, correctHash, correctTransactions)
+    if(!correctNonce || !correctPreviousBlockHash || !correctHash || !correctTransactions){
+        console.log('failed at genesis block')
+        validChain = false
+    }
+    return validChain
 }
 module.exports = Blockchain
