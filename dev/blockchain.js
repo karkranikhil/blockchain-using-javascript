@@ -97,4 +97,101 @@ Blockchain.prototype.chainIsValid = function(blockchain){
     }
     return validChain
 }
+// consensus
+app.get('/consensus', function(req, res) {
+	const requestPromises = [];
+	nikcoin.networkNodes.forEach(networkNodeUrl => {
+		const requestOptions = {
+			uri: networkNodeUrl + '/blockchain',
+			method: 'GET',
+			json: true
+		};
+
+		requestPromises.push(rp(requestOptions));
+	});
+
+	Promise.all(requestPromises)
+	.then(blockchains => {
+		const currentChainLength = nikcoin.chain.length;
+		let maxChainLength = currentChainLength;
+		let newLongestChain = null;
+		let newPendingTransactions = null;
+
+		blockchains.forEach(blockchain => {
+			if (blockchain.chain.length > maxChainLength) {
+				maxChainLength = blockchain.chain.length;
+				newLongestChain = blockchain.chain;
+				newPendingTransactions = blockchain.pendingTransactions;
+			};
+		});
+
+
+		if (!newLongestChain || (newLongestChain && !nikcoin.chainIsValid(newLongestChain))) {
+			res.json({
+				note: 'Current chain has not been replaced.',
+				chain: nikcoin.chain
+			});
+		}
+		else {
+			nikcoin.chain = newLongestChain;
+			nikcoin.pendingTransactions = newPendingTransactions;
+			res.json({
+				note: 'This chain has been replaced.',
+				chain: nikcoin.chain
+			});
+		}
+	});
+});
+
+Blockchain.prototype.getBlock = function(blockHash) {
+	let correctBlock = null;
+	this.chain.forEach(block => {
+		if (block.hash === blockHash) correctBlock = block;
+	});
+	return correctBlock;
+};
+
+
+Blockchain.prototype.getTransaction = function(transactionId) {
+	let correctTransaction = null;
+	let correctBlock = null;
+
+	this.chain.forEach(block => {
+		block.transactions.forEach(transaction => {
+			if (transaction.transactionId === transactionId) {
+				correctTransaction = transaction;
+				correctBlock = block;
+			};
+		});
+	});
+
+	return {
+		transaction: correctTransaction,
+		block: correctBlock
+	};
+};
+
+
+Blockchain.prototype.getAddressData = function(address) {
+	const addressTransactions = [];
+	this.chain.forEach(block => {
+		block.transactions.forEach(transaction => {
+			if(transaction.sender === address || transaction.recipient === address) {
+				addressTransactions.push(transaction);
+			};
+		});
+	});
+
+	let balance = 0;
+	addressTransactions.forEach(transaction => {
+		if (transaction.recipient === address) balance += transaction.amount;
+		else if (transaction.sender === address) balance -= transaction.amount;
+	});
+
+	return {
+		addressTransactions: addressTransactions,
+		addressBalance: balance
+	};
+};
+
 module.exports = Blockchain

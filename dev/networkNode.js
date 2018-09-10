@@ -171,7 +171,41 @@ app.post('/register-nodes-bulk', function(req, res) {
 	res.json({ note: 'Bulk registration successful.' });
 });
 
+// get block by blockHash
+app.get('/block/:blockHash', function(req, res) { 
+	const blockHash = req.params.blockHash;
+	const correctBlock = nikcoin.getBlock(blockHash);
+	res.json({
+		block: correctBlock
+	});
+});
 
+
+// get transaction by transactionId
+app.get('/transaction/:transactionId', function(req, res) {
+	const transactionId = req.params.transactionId;
+	const trasactionData = nikcoin.getTransaction(transactionId);
+	res.json({
+		transaction: trasactionData.transaction,
+		block: trasactionData.block
+	});
+});
+
+
+// get address by address
+app.get('/address/:address', function(req, res) {
+	const address = req.params.address;
+	const addressData = nikcoin.getAddressData(address);
+	res.json({
+		addressData: addressData
+	});
+});
+
+
+// block explorer
+app.get('/block-explorer', function(req, res) {
+	res.sendFile('./block-explorer/index.html', { root: __dirname });
+});
 
 
 app.listen(port, function(){

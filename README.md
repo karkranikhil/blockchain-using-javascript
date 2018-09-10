@@ -70,15 +70,17 @@ This will create a transation and broadcast successfully
 
 | SNO | METHOD        | Endpoint      | Description  |
 | --- | ------------- |:-------------:| ------------:|
-|  1  | GET           | /blockchain   | to start the block chain |
-|  2  | POST          | /transaction      |    |
-|  3  | POST          | /transaction/broadcast      |     |
-|  4  | GET            | /mine      |     |
+|  1  | GET           | /blockchain   | Start the block chain |
+|  2  | POST          | /transaction      | create a new transaction   |
+|  3  | POST          | /transaction/broadcast      |  broadcast transaction to all the node in the network   |
+|  4  | GET            | /mine      |   Help in mine the block on specific node and put the transaction into the block  |
 |  5  | POST          | /receive-new-block      |     |
 |  6  | POST          | /register-and-broadcast-node     |     |
-|  7  | POST          | /register-node     |     |
-|  8  | POST          | /register-nodes-bulk     |     |
-
+|  7  | POST          | /register-node     | To register single nodes    |
+|  8  | POST          | /register-nodes-bulk     | To register many nodes in one go    |
+|9    | GET            |/block/:blockHash| To get the Specific block based on block hash|
+|10| GET|/transaction/:transactionId| To get specific transaction based on specific transactionId and get the correct block as well.|
+11|GET|/address/:address| To get address based on specific address|
 ### Request for /register-nodes-bulk
     {
         "allNetworkNodes":[
