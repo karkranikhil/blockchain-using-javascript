@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html ng-app="myApp">
+<head>
+	<title>Block Explorer</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+	<link rel="stylesheet" type="text/css" href="./static/css/bootstrap.min.css">
+    <link rel="stylesheet" type="text/css" href="./style.css" >
+</head>
+
+<body>
+    <div class="container" ng-controller="myCtrl">
+    <div class="row">
+        <div class="col-md-8 offset-md-2">
+            <h1 id="page-title">Block Explorer</h1>
+            <hr/>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-8 offset-md-2">
+            <form ng-submit="search(searchValue)">
+                    <div class="custom-radios row">
+                        <div class="col-sm-4">
+                            <input type="radio" id="searchType-1" ng-model="searchType" name="searchType" value="block" ng-change="searchTypeChange('block')">
+                            <label for="searchType-1">Block Hash
+                            <span>
+                            </span>
+                            </label>
+                        </div>
+                        <div class="col-sm-4">
+                            <input type="radio" id="searchType-2" ng-model="searchType" name="searchType" value="transaction" ng-change="searchTypeChange('transaction')">
+                            <label for="searchType-2">Transaction ID
+                            <span>
+                            </span>
+                            </label>
+                        </div>
+                        <div class="col-sm-4">
+                            <input type="radio" id="searchType-3" ng-model="searchType" name="searchType" value="address" ng-change="searchTypeChange('address')">
+                            <label for="searchType-3">Address
+                            <span>
+                            </span>
+                            </label>
+                        </div>
+                        </div>
+                        <div class="form-group mtb-2">
+                            <input type="text" class="form-control" ng-model="searchValue" placeholder={{searchTypeName}}>
+                        </div>
+					<button
+						type="submit"
+						class="btn btn-primary margin-auto btn-search">
+							Search
+					</button>
+                    <div class="alert alert-danger alert-dismissible fade show" ng-if="!block && !transaction && !addressData && initialSearchMade" class="no-data-text">
+                        <button type="button" class="close" data-dismiss="alert">&times;</button>
+                        <strong>No data found !</strong> Please check your search details
+                    </div>
+				</form>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-md-10 offset-md-1">
+
+				<!-- 'display block' table -->
+				<h3 class="table-title" ng-if="block">Block</h3>
+				<table class="table table-striped" ng-if="block">
+					<tbody>
+						<tr>	
+							<td class="bold">Block Hash</td>
+							<td>{{ block.hash }}</td>
+						</tr>
+						<tr>	
+							<td class="bold">Index</td>
+							<td>{{ block.index }}</td>
+						</tr>
+						<tr>	
+							<td class="bold">Time Stamp</td>
+							<td>{{ block.timestamp }}</td>
+						</tr>
+						<tr>	
+							<td class="bold">Nonce</td>
+							<td>{{ block.nonce }}</td>
+						</tr>
+						<tr>	
+							<td class="bold">Previous Hash</td>
+							<td>{{ block.previousBlockHash }}</td>
+						</tr>
+						<tr>	
+							<td class="bold">Number Transactions</td>
+							<td>{{ block.transactions.length }}</td>
+						</tr>
+					</tbody>
+				</table>
+				<!-- end 'display block' table -->
+
+				<!-- 'display transaction' table -->
+				<h3 class="table-title" ng-if="transaction">Transaction</h3>
+				<table class="table table-striped" ng-if="transaction">
+					<tbody>
+						<tr>	
+							<td class="bold">Sender</td>
+							<td>{{ transaction.sender }}</td>
+						</tr>
+						<tr>	
+							<td class="bold">Recipient</td>
+							<td>{{ transaction.recipient }}</td>
+						</tr>
+						<tr>	
+							<td class="bold">Amount</td>
+							<td>{{ transaction.amount }}</td>
+						</tr>
+					</tbody>
+				</table>
+				<!-- end 'display transaction' table -->
+
+				<!-- 'display address' table -->
+				<h3 class="table-title" ng-if="addressData">Address</h3>
+				<p id="balance-text" ng-if="addressData">(Balance: {{ addressData.addressBalance }})</p>
+				<table class="table table-striped" ng-if="addressData">
+					<thead>
+						<tr>
+							<th scope="col">Sender</th>
+							<th scope="col">Recipient</th>
+							<th scope="col">Amount</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr ng-repeat="transaction in addressData.addressTransactions">
+							<td>{{ transaction.sender }}</td>
+							<td>{{ transaction.recipient }}</td>
+							<td>{{ transaction.amount }}</td>
+						</tr>
+					</tbody>
+				</table>
+				<!-- end 'display address' table -->
+
+			</div>
+		</div>
+	</div>
+<script src="./static/js/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
+	<script src="./static/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+  <script src="./static/js/angular.min.js"></script>
+<script src="./app.js"></script>
+</body>
+
+</html>

@@ -3,13 +3,15 @@ const app = express()
 const bodyParser = require('body-parser')
 const Blockchain = require('./blockchain')
 const uuid = require('uuid/v1');
+const path = require("path");
 const rp = require('request-promise')
 console.log(process.argv)
 const port = process.argv[2]
 
 const nodeAddress = uuid().split('-').join('')
 const nikcoin = new Blockchain()
-
+console.log('nikhil', path.join(__dirname, 'block-explorer'))
+app.use('/', express.static(path.join(__dirname, 'block-explorer')))
 
 app.use(bodyParser.json())
 app.use(bodyParser.urlencoded({extended:false}))
@@ -170,7 +172,51 @@ app.post('/register-nodes-bulk', function(req, res) {
 
 	res.json({ note: 'Bulk registration successful.' });
 });
+// consensus
+app.get('/consensus', function(req, res) {
+	const requestPromises = [];
+	nikcoin.networkNodes.forEach(networkNodeUrl => {
+		const requestOptions = {
+			uri: networkNodeUrl + '/blockchain',
+			method: 'GET',
+			json: true
+		};
 
+		requestPromises.push(rp(requestOptions));
+	});
+
+	Promise.all(requestPromises)
+	.then(blockchains => {
+		const currentChainLength = nikcoin.chain.length;
+		let maxChainLength = currentChainLength;
+		let newLongestChain = null;
+		let newPendingTransactions = null;
+
+		blockchains.forEach(blockchain => {
+			if (blockchain.chain.length > maxChainLength) {
+				maxChainLength = blockchain.chain.length;
+				newLongestChain = blockchain.chain;
+				newPendingTransactions = blockchain.pendingTransactions;
+			};
+		});
+
+
+		if (!newLongestChain || (newLongestChain && !nikcoin.chainIsValid(newLongestChain))) {
+			res.json({
+				note: 'Current chain has not been replaced.',
+				chain: nikcoin.chain
+			});
+		}
+		else {
+			nikcoin.chain = newLongestChain;
+			nikcoin.pendingTransactions = newPendingTransactions;
+			res.json({
+				note: 'This chain has been replaced.',
+				chain: nikcoin.chain
+			});
+		}
+	});
+});
 // get block by blockHash
 app.get('/block/:blockHash', function(req, res) { 
 	const blockHash = req.params.blockHash;
@@ -201,12 +247,10 @@ app.get('/address/:address', function(req, res) {
 	});
 });
 
-
 // block explorer
-app.get('/block-explorer', function(req, res) {
-	res.sendFile('./block-explorer/index.html', { root: __dirname });
-});
-
+// app.get('/block-explorer', function(req, res) {
+// 	res.sendFile('./block-explorer/index.html', { root: __dirname });
+// });
 
 app.listen(port, function(){
     console.log(`Listening on port ${port}...`)

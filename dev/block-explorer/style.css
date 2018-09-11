@@ -1,0 +1,114 @@
+html, body {
+    min-height: 100vh;
+    background: #834d9b; /* fallback for old browsers */
+    background: -webkit-linear-gradient(to right, #834d9b, #d04ed6); /* Chrome 10-25, Safari 5.1-6 */
+    background: linear-gradient(to right, #834d9b, #d04ed6);
+}
+.container {
+    padding-top: 50px;
+    padding-bottom: 50px;
+}
+#page-title {
+    text-align: center;
+    margin-bottom: 40px;
+}
+.table-title {
+    margin-bottom: 20px;
+    text-align: center;
+}
+.table {
+    background-color: #ffffff;
+    box-shadow: 2px 2px 15px -3px rgba(0,0,0,0.75);
+}
+#balance-text {
+    text-align: center;
+    margin-top: -20px;
+    margin-bottom: 30px;
+}
+.margin-auto {
+    margin: auto;
+    display: block;
+}
+.btn-search {
+    margin-bottom: 50px;
+}
+.bold {
+    font-weight: 700;
+}
+.no-data-text {
+    color: red;
+    text-align: center;
+}
+
+h1,h3{
+    color:#fff;
+}
+.btn-primary{
+    color: #fff;
+    background-color: #009688 !important;
+    border-color: #009688 !important;
+}
+.custom-radios{
+    text-align: center !important;
+}
+.custom-radios div {
+  display: inline-block;
+}
+.custom-radios input[type="radio"] {
+  display: none;
+}
+.custom-radios input[type="radio"] + label {
+  color: #fff;
+  font-family: Arial, sans-serif;
+  font-size: 20px;
+}
+.custom-radios input[type="radio"] + label span {
+  display: inline-block;
+  width: 40px;
+  height: 40px;
+  margin: -1px 4px 0 0;
+  vertical-align: middle;
+  cursor: pointer;
+  border-radius: 50%;
+  border: 2px solid #FFFFFF;
+  box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.33);
+  background-repeat: no-repeat;
+  background-position: center;
+  text-align: center;
+  line-height: 44px;
+}
+.custom-radios input[type="radio"] + label span img {
+  opacity: 0;
+  transition: all .3s ease;
+}
+.custom-radios input[type="radio"]#searchType-1 + label span {
+  background-color: #2ecc71;
+}
+.custom-radios input[type="radio"]#searchType-2 + label span {
+  background-color: #3498db;
+}
+.custom-radios input[type="radio"]#searchType-3 + label span {
+  background-color: #f1c40f;
+}
+.custom-radios input[type="radio"]#searchType-4 + label span {
+  background-color: #e74c3c;
+}
+.custom-radios input[type="radio"]:checked + label span {
+  opacity: 1;
+  background: url(https://s3-us-west-2.amazonaws.com/s.cdpn.io/242518/check-icn.svg) center center no-repeat;
+  width: 40px;
+  height: 40px;
+  display: inline-block;
+
+}
+#hr{
+        margin-top: 1rem;
+    margin-bottom: 1rem;
+    border: 0;
+    border-top: 1px solid #fff;
+}
+
+.mtb-2{
+        margin-bottom: 2rem;
+    margin-top: 2rem;
+}

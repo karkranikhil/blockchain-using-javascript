@@ -30,8 +30,8 @@
         <entry file="file://$PROJECT_DIR$/README.md">
           <provider selected="true" editor-type-id="split-provider[text-editor;MarkdownPreviewEditor]">
             <state split_layout="SPLIT">
-              <first_editor relative-caret-position="399">
-                <caret line="81" column="132" selection-start-line="81" selection-start-column="132" selection-end-line="81" selection-end-column="132" />
+              <first_editor relative-caret-position="249">
+                <caret line="101" column="1" selection-start-line="101" selection-start-column="1" selection-end-line="101" selection-end-column="1" />
                 <folding />
               </first_editor>
               <second_editor>
@@ -42,7 +42,7 @@
           <provider editor-type-id="split-provider[text-editor;markdown-preview-editor]">
             <state split_layout="SPLIT">
               <first_editor relative-caret-position="1035">
-                <caret line="69" column="0" selection-start-line="69" selection-start-column="0" selection-end-line="69" selection-end-column="0" />
+                <caret line="87" column="0" selection-start-line="87" selection-start-column="0" selection-end-line="87" selection-end-column="0" />
                 <folding />
               </first_editor>
               <second_editor />
@@ -53,8 +53,8 @@
       <file leaf-file-name="networkNode.js" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/dev/networkNode.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="139">
-              <caret line="184" column="9" selection-start-line="184" selection-start-column="9" selection-end-line="184" selection-end-column="36" />
+            <state relative-caret-position="169">
+              <caret line="230" column="9" selection-start-line="230" selection-start-column="9" selection-end-line="230" selection-end-column="9" />
               <folding />
             </state>
           </provider>
@@ -64,7 +64,17 @@
         <entry file="file://$PROJECT_DIR$/dev/blockchain.js">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="567">
-              <caret line="178" column="28" selection-start-line="178" selection-start-column="28" selection-end-line="178" selection-end-column="28" />
+              <caret line="133" column="28" selection-start-line="133" selection-start-column="28" selection-end-line="133" selection-end-column="28" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="test.js" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/dev/test.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="0">
+              <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
               <folding />
             </state>
           </provider>
@@ -168,6 +178,24 @@
             </PATH_ELEMENT>
             <PATH_ELEMENT>
               <option name="myItemId" value="dev" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="Blockchain" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="Blockchain" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="dev" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="block-explorer" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
@@ -629,7 +657,7 @@
       <option name="presentableId" value="Default" />
       <updated>1536225420454</updated>
       <workItem from="1536225421834" duration="1827000" />
-      <workItem from="1536576719065" duration="1675000" />
+      <workItem from="1536576719065" duration="2780000" />
     </task>
     <task id="LOCAL-00001" summary="adding chainIsValid method to validate the chain">
       <created>1536473813230</created>
@@ -638,11 +666,18 @@
       <option name="project" value="LOCAL" />
       <updated>1536473813230</updated>
     </task>
-    <option name="localTasksCounter" value="2" />
+    <task id="LOCAL-00002" summary="adding new methods for block explorer&#10; 1) transactions&#10; 2) getBlock&#10; 3)address&#10; 4)block hash">
+      <created>1536582437540</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1536582437540</updated>
+    </task>
+    <option name="localTasksCounter" value="3" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="3502000" />
+    <option name="totallyTimeSpent" value="4607000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="0" y="23" width="1440" height="799" extended-state="0" />
@@ -689,7 +724,8 @@
   </component>
   <component name="VcsManagerConfiguration">
     <MESSAGE value="adding chainIsValid method to validate the chain" />
-    <option name="LAST_COMMIT_MESSAGE" value="adding chainIsValid method to validate the chain" />
+    <MESSAGE value="adding new methods for block explorer&#10; 1) transactions&#10; 2) getBlock&#10; 3)address&#10; 4)block hash" />
+    <option name="LAST_COMMIT_MESSAGE" value="adding new methods for block explorer&#10; 1) transactions&#10; 2) getBlock&#10; 3)address&#10; 4)block hash" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager />
@@ -745,15 +781,23 @@
     <entry file="file://$PROJECT_DIR$/dev/blockchain.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="567">
-          <caret line="178" column="28" selection-start-line="178" selection-start-column="28" selection-end-line="178" selection-end-column="28" />
+          <caret line="133" column="28" selection-start-line="133" selection-start-column="28" selection-end-line="133" selection-end-column="28" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/dev/test.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/dev/networkNode.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="139">
-          <caret line="184" column="9" selection-start-line="184" selection-start-column="9" selection-end-line="184" selection-end-column="36" />
+        <state relative-caret-position="169">
+          <caret line="230" column="9" selection-start-line="230" selection-start-column="9" selection-end-line="230" selection-end-column="9" />
           <folding />
         </state>
       </provider>
@@ -761,8 +805,8 @@
     <entry file="file://$PROJECT_DIR$/README.md">
       <provider selected="true" editor-type-id="split-provider[text-editor;MarkdownPreviewEditor]">
         <state split_layout="SPLIT">
-          <first_editor relative-caret-position="399">
-            <caret line="81" column="132" selection-start-line="81" selection-start-column="132" selection-end-line="81" selection-end-column="132" />
+          <first_editor relative-caret-position="249">
+            <caret line="101" column="1" selection-start-line="101" selection-start-column="1" selection-end-line="101" selection-end-column="1" />
             <folding />
           </first_editor>
           <second_editor>
@@ -773,7 +817,7 @@
       <provider editor-type-id="split-provider[text-editor;markdown-preview-editor]">
         <state split_layout="SPLIT">
           <first_editor relative-caret-position="1035">
-            <caret line="69" column="0" selection-start-line="69" selection-start-column="0" selection-end-line="69" selection-end-column="0" />
+            <caret line="87" column="0" selection-start-line="87" selection-start-column="0" selection-end-line="87" selection-end-column="0" />
             <folding />
           </first_editor>
           <second_editor />

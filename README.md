@@ -73,13 +73,13 @@ This will create a transation and broadcast successfully
 |  1  | GET           | /blockchain   | Start the block chain |
 |  2  | POST          | /transaction      | create a new transaction   |
 |  3  | POST          | /transaction/broadcast      |  broadcast transaction to all the node in the network   |
-|  4  | GET            | /mine      |   Help in mine the block on specific node and put the transaction into the block  |
+|  4  | GET            | /mine      |   Help in mine the block on specific node  |
 |  5  | POST          | /receive-new-block      |     |
 |  6  | POST          | /register-and-broadcast-node     |     |
 |  7  | POST          | /register-node     | To register single nodes    |
 |  8  | POST          | /register-nodes-bulk     | To register many nodes in one go    |
 |9    | GET            |/block/:blockHash| To get the Specific block based on block hash|
-|10| GET|/transaction/:transactionId| To get specific transaction based on specific transactionId and get the correct block as well.|
+|10| GET|/transaction/:transactionId| To get specific transaction based on specific transactionId|
 11|GET|/address/:address| To get address based on specific address|
 ### Request for /register-nodes-bulk
     {
@@ -89,5 +89,38 @@ This will create a transation and broadcast successfully
             "http://localhost:3004"
             ]
     }
+### Request for /transaction/broadcast
+    {
+        "amount":"200",
+        "sender":"NIKHIL123456789",
+        "recipient":"KARKRA987654321"
+    }
 
+### To run the Block Explorer
+    npm run node_1
  
+ then go to http://localhost:3001
+    
+### To Test block explorer
+ <p> 1)  run all nodes by npm run node_1, npm run node_2, npm run node_3, npm run node_4, npm run node_5</p>
+   <p> 2) Go to browser run http://localhost:3001/blockchain</p>
+   <p> 3)Go to postman and hit the post call /register-and-broadcast-node end point to register nodes</p>
+
+    payload for the call
+    {
+        "newNodeUrl":"http://localhost:3002"
+    }
+    
+<p>Similary add 3003, 3004 and 3005</p>
+<p>4) Mine the block by    http://localhost:3002/mine</p>
+<p>5)add some transaction by hiting the below URL in postman</p>
+http://localhost:3002/transaction/broadcast
+
+    payload for the call
+       {
+        "amount":100,
+        "sender":"BHANUKARKRA68767863",
+        "recipient":"SIDKARKRA68767863"
+    }
+    
+<p>Take the hash of block and search in explorer you will get the data.</p>    

@@ -97,51 +97,6 @@ Blockchain.prototype.chainIsValid = function(blockchain){
     }
     return validChain
 }
-// consensus
-app.get('/consensus', function(req, res) {
-	const requestPromises = [];
-	nikcoin.networkNodes.forEach(networkNodeUrl => {
-		const requestOptions = {
-			uri: networkNodeUrl + '/blockchain',
-			method: 'GET',
-			json: true
-		};
-
-		requestPromises.push(rp(requestOptions));
-	});
-
-	Promise.all(requestPromises)
-	.then(blockchains => {
-		const currentChainLength = nikcoin.chain.length;
-		let maxChainLength = currentChainLength;
-		let newLongestChain = null;
-		let newPendingTransactions = null;
-
-		blockchains.forEach(blockchain => {
-			if (blockchain.chain.length > maxChainLength) {
-				maxChainLength = blockchain.chain.length;
-				newLongestChain = blockchain.chain;
-				newPendingTransactions = blockchain.pendingTransactions;
-			};
-		});
-
-
-		if (!newLongestChain || (newLongestChain && !nikcoin.chainIsValid(newLongestChain))) {
-			res.json({
-				note: 'Current chain has not been replaced.',
-				chain: nikcoin.chain
-			});
-		}
-		else {
-			nikcoin.chain = newLongestChain;
-			nikcoin.pendingTransactions = newPendingTransactions;
-			res.json({
-				note: 'This chain has been replaced.',
-				chain: nikcoin.chain
-			});
-		}
-	});
-});
 
 Blockchain.prototype.getBlock = function(blockHash) {
 	let correctBlock = null;
